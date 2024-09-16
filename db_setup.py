@@ -1,10 +1,10 @@
 import sqlite3
 
 def create_tables():
-    conn = sqlite3.connect('test_db.sqlite3')  # Use um banco de dados de teste
+    conn = sqlite3.connect('test_db.sqlite3')  # Use a test database
     cursor = conn.cursor()
 
-    # Criar a tabela de usuários
+    # Create the users table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -14,7 +14,7 @@ def create_tables():
         )
     ''')
 
-    # Criar a tabela de produtos
+    # Create the products table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS products (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,7 +25,7 @@ def create_tables():
         )
     ''')
 
-    # Criar a tabela de carrinho
+    # Create the cart table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS cart (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,7 +37,7 @@ def create_tables():
         )
     ''')
 
-    # Criar a tabela de pedidos
+    # Create the orders table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS orders (
             id INTEGER PRIMARY KEY AUTOINCREMENT,

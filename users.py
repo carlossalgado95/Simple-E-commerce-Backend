@@ -1,7 +1,7 @@
 import sqlite3
 import hashlib
 
-# Função para criar a tabela de usuários (se não existir)
+# Function to create the users table (if it doesn't exist)
 def create_user_table():
     conn = sqlite3.connect('db.sqlite3')
     cursor = conn.cursor()
@@ -17,7 +17,7 @@ def create_user_table():
     conn.commit()
     conn.close()
 
-# Função para verificar se o usuário já existe
+# Function to check if the user already exists
 def user_exists(username):
     conn = sqlite3.connect('db.sqlite3')
     cursor = conn.cursor()
@@ -28,7 +28,7 @@ def user_exists(username):
 
     return user is not None
 
-# Função para registrar um novo usuário
+# Function to register a new user
 def register_user(username, password):
     if user_exists(username):
         print(f"Erro: O nome de usuário {username} já está em uso.")
@@ -37,7 +37,7 @@ def register_user(username, password):
     conn = sqlite3.connect('db.sqlite3')
     cursor = conn.cursor()
 
-    # Hash da senha para garantir a segurança
+    # Password hashing to ensure security
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
     cursor.execute('''
@@ -50,12 +50,12 @@ def register_user(username, password):
 
     print(f"Usuário {username} registrado com sucesso!")
 
-# Função para realizar login do usuário
+# Function to perform user login
 def login_user(username, password):
     conn = sqlite3.connect('db.sqlite3')
     cursor = conn.cursor()
 
-    # Hash da senha para comparar com o valor armazenado
+    # Hash of the password to compare with the stored value
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
     cursor.execute('''
@@ -67,12 +67,12 @@ def login_user(username, password):
 
     if user:
         print(f"Login bem-sucedido! Bem-vindo, {username}.")
-        return user[0]  # Retorna o ID do usuário
+        return user[0]  # Returns the user ID
     else:
         print("Falha no login: Usuário ou senha incorretos.")
-        return None  # Falha no login
+        return None  # Login failed
 
-# Função para listar todos os usuários
+# Function to list all users
 def list_users():
     conn = sqlite3.connect('db.sqlite3')
     cursor = conn.cursor()

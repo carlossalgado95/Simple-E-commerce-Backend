@@ -1,10 +1,10 @@
 import sqlite3
 
-# Conectar ao banco de dados (ele será criado se não existir)
+# Connect to the database (it will be created if it doesn't exist)
 conn = sqlite3.connect('db.sqlite3')
 cursor = conn.cursor()
 
-# Criar tabela de usuários
+# Create users table
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
 )
 ''')
 
-# Criar tabela de produtos
+# Create product table
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

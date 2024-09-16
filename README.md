@@ -1,120 +1,119 @@
-# Projeto E-commerce Backend
+# E-commerce Backend Project
 
-## Descrição do Projeto
+## Project Description
 
-Este projeto é um backend para um sistema de e-commerce, implementado com SQLite como banco de dados. Ele inclui funcionalidades básicas para gerenciar pedidos, produtos e o carrinho de compras. O projeto é composto por scripts Python para manipulação de dados no banco de dados e testes automatizados para garantir a integridade do código.
+This project is a backend for an e-commerce system, implemented with SQLite as the database. It includes basic functionalities for managing orders, products and the shopping cart. The project consists of Python scripts for manipulating data in the database and automated tests to ensure code integrity.
 
-## Instruções para Configuração e Execução da Aplicação
+## Instructions for Configuring and Running the Application
 
-### Requisitos
+### Requirements
 
 - Python 3.x
-- SQLite (incluso no Python padrão)
+- SQLite (included in standard Python)
 
-### Configuração
+### Configuration
 
-1. **Clone o repositório:**
+1. **Clone the repository:**
 
-    ```bash
-    git clone https://github.com/seuusuario/seurepositorio.git
-    cd seurepositorio
-    ```
+```bash
+git clone https://github.com/yourusername/yourrepository.git
+cd yourrepository
+```
 
-2. **Crie e ative um ambiente virtual (opcional, mas recomendado):**
+2. **Create and activate a virtual environment (optional, but recommended):**
 
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # Para Windows: venv\Scripts\activate
-    ```
+```bash
+python -m venv venv
+source venv/bin/activate # For Windows: venv\Scripts\activate
+```
 
-3. **Instale as dependências (se houver):**
+3. **Install dependencies (if any):**
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+```bash
+pip install -r requirements.txt
+```
 
-4. **Configure o banco de dados:**
+4. **Configure the database:**
 
-    O banco de dados SQLite será criado automaticamente quando você executar os testes ou iniciar a aplicação pela primeira vez. Certifique-se de que o arquivo `test_db.sqlite3` não exista na pasta antes de iniciar os testes.
+The SQLite database will be created automatically when you run the tests or start the application for the first time. Make sure the `test_db.sqlite3` file does not exist in the folder before starting the tests.
 
-### Execução da Aplicação
+### Running the Application
 
-- **Adicionar Produto:**
+- **Add Product:**
 
-    Importe o módulo e use a função `add_product` para adicionar um novo produto ao banco de dados.
+Import the module and use the `add_product` function to add a new product to the database.
 
-    ```python
-    from products import add_product
-    conn = sqlite3.connect('test_db.sqlite3')
-    add_product(conn, "Nome do Produto", "Descrição do Produto", 20.0, 100)
-    ```
+```python
+from products import add_product
+conn = sqlite3.connect('test_db.sqlite3')
+add_product(conn, "Product Name", "Product Description", 20.0, 100)
+```
 
-- **Editar Produto:**
+- **Edit Product:**
 
-    Use a função `edit_product` para atualizar um produto existente.
+Use the `edit_product` function to update an existing product.
 
-    ```python
-    from products import edit_product
-    conn = sqlite3.connect('test_db.sqlite3')
-    edit_product(conn, 1, "Novo Nome", "Nova Descrição", 30.0, 150)
-    ```
+```python
+from products import edit_product
+conn = sqlite3.connect('test_db.sqlite3')
+edit_product(conn, 1, "New Name", "New Description", 30.0, 150)
+```
 
-- **Remover Produto:**
+- **Remove Product:**
 
-    Use a função `remove_product` para deletar um produto.
+Use the `remove_product` function to delete a product.
 
-    ```python
-    from products import remove_product
-    conn = sqlite3.connect('test_db.sqlite3')
-    remove_product(conn, 1)
-    ```
+```python
+from products import remove_product
+conn = sqlite3.connect('test_db.sqlite3')
+remove_product(conn, 1)
+```
 
-- **Listar Produtos:**
+- **List Products:**
 
-    Use a função `list_products` para obter todos os produtos.
+Use the `list_products` function to get all products.
 
-    ```python
-    from products import list_products
-    conn = sqlite3.connect('test_db.sqlite3')
-    products = list_products(conn)
-    ```
+```python
+from products import list_products
+conn = sqlite3.connect('test_db.sqlite3')
+products = list_products(conn)
+```
 
-- **Visualizar Produto por ID:**
+- **View Product by ID:**
 
-    Use a função `view_product_by_id` para obter os detalhes de um produto específico.
+Use the `view_product_by_id` function to get the details of a specific product.
 
-    ```python
-    from products import view_product_by_id
-    conn = sqlite3.connect('test_db.sqlite3')
-    product = view_product_by_id(conn, 1)
-    ```
+```python
+from products import view_product_by_id
+conn = sqlite3.connect('test_db.sqlite3')
+product = view_product_by_id(conn, 1)
+```
 
-## Instruções para Execução dos Testes
+## Instructions for Running the Tests
 
-1. **Execute os testes automatizados:**
+1. **Run the automated tests:**
 
-    Certifique-se de que o ambiente virtual esteja ativado e que todas as dependências estejam instaladas. Então, execute:
+Make sure the virtual environment is activated and all dependencies are installed. Then, run:
 
-    ```bash
-    python -m unittest discover -s tests
-    ```
+```bash
+python -m unittest discover -s tests
+```
 
-    Isso executará todos os testes localizados na pasta `tests` e fornecerá um relatório sobre a integridade do código.
+This will run all the tests located in the `tests` folder and provide a report on the integrity of the code.
 
-## Assumptions e Decisões de Design
+## Assumptions and Design Decisions
 
-- **Banco de Dados SQLite:** O projeto utiliza SQLite para simplicidade e portabilidade. Ideal para protótipos e aplicações pequenas.
-- **Validações Básicas:** As funções para manipulação de produtos incluem validações básicas para garantir que as entradas sejam válidas antes de executar operações no banco de dados.
-- **Testes Automatizados:** Testes automatizados foram implementados para garantir que as operações básicas do banco de dados funcionem conforme o esperado e para verificar a manipulação de entradas inválidas.
+- **SQLite Database:** The project uses SQLite for simplicity and portability. Ideal for prototypes and small applications.
+- **Basic Validations:** The product handling functions include basic validations to ensure that inputs are valid before performing database operations.
+- **Automated Tests:** Automated tests were implemented to ensure that basic database operations work as expected and to verify the handling of invalid inputs.
 
-## Aprendizados e Tecnologias Usadas
+## Learnings and Technologies Used
 
-- **SQLite:** Utilizado como sistema de gerenciamento de banco de dados relacional.
-- **Python:** Linguagem de programação principal para desenvolvimento da lógica de backend.
-- **Unittest:** Framework de testes para garantir a qualidade do código.
-- **Validações e Controle de Acesso:** Implementações básicas para garantir a integridade e segurança dos dados manipulados pelo sistema.
+- **SQLite:** Used as a relational database management system.
+- **Python:** Primary programming language for developing backend logic.
+- **Unittest:** Testing framework to ensure code quality.
+- **Validations and Access Control:** Basic implementations to ensure the integrity and security of data handled by the system.
 
 ---
 
-Se você tiver alguma dúvida ou precisar de mais informações, sinta-se à vontade para entrar em contato ou consultar a documentação adicional.
-
+If you have any questions or need more information, feel free to contact us or consult the additional documentation.

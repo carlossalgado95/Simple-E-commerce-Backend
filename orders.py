@@ -1,15 +1,15 @@
 import sqlite3
 
 def is_valid_user_id(user_id):
-    """Verifica se o ID do usuário é válido."""
+    """Checks if the user ID is valid."""
     return isinstance(user_id, int) and user_id > 0
 
 def is_valid_order_id(order_id):
-    """Verifica se o ID do pedido é válido."""
+    """Checks if the order ID is valid."""
     return isinstance(order_id, int) and order_id > 0
 
 def is_valid_total(total):
-    """Verifica se o total é válido."""
+    """Check if the total is valid."""
     return isinstance(total, (int, float)) and total >= 0
 
 def create_orders_table():
@@ -60,7 +60,7 @@ def place_order(user_id):
     if not is_valid_total(total):
         raise ValueError("Invalid total amount")
 
-    # Criar o pedido
+    # Create the order
     cursor.execute('''
         INSERT INTO orders (user_id, total_price, order_date)
         VALUES (?, ?, DATE('now'))
@@ -68,7 +68,7 @@ def place_order(user_id):
 
     order_id = cursor.lastrowid
 
-    # Limpar o carrinho após o pedido
+    # Clear cart after ordering
     cursor.execute('''
         DELETE FROM cart WHERE user_id = ?
     ''', (user_id,))
@@ -87,7 +87,7 @@ def view_order_details(order_id, user_id):
     conn = sqlite3.connect('test_db.sqlite3')
     cursor = conn.cursor()
 
-    # Verificar se o pedido pertence ao usuário
+    # Check if the order belongs to the user
     cursor.execute('''
         SELECT user_id FROM orders WHERE id = ?
     ''', (order_id,))
@@ -97,7 +97,7 @@ def view_order_details(order_id, user_id):
         conn.close()
         raise PermissionError("You are not authorized to view this order")
 
-    # Obter detalhes do pedido
+    # Get Order Details    
     cursor.execute('''
         SELECT * FROM orders WHERE id = ?
     ''', (order_id,))

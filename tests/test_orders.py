@@ -3,7 +3,6 @@ import os
 import unittest
 import sqlite3
 
-# Adicionar o diretório 'src' ao caminho de busca do Python
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from orders import create_orders_table, drop_orders_table, place_order, view_order_details
@@ -11,18 +10,16 @@ from orders import create_orders_table, drop_orders_table, place_order, view_ord
 class TestOrders(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        # Configuração para o banco de dados de teste
+        # Configuration for the test database
         cls.test_db = 'test_db.sqlite3'
         if os.path.exists(cls.test_db):
             os.remove(cls.test_db)
         
-        # Criar as tabelas necessárias
-        create_orders_table()
-
+        create_orders_table() # Create the necessary tables
         cls.conn = sqlite3.connect(cls.test_db)
         cls.cursor = cls.conn.cursor()
 
-        # Criar tabelas adicionais necessárias para os testes
+        # Create additional tables needed for testing
         cls.cursor.execute('''
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -47,7 +44,7 @@ class TestOrders(unittest.TestCase):
             )
         ''')
 
-        # Inserir dados de exemplo
+        # Insert sample data
         cls.cursor.execute('INSERT INTO users (username) VALUES ("Test User")')
         cls.cursor.execute('INSERT INTO users (username) VALUES ("Another User")')
         cls.cursor.execute('INSERT INTO products (name, price) VALUES ("Test Product", 10.0)')
@@ -57,21 +54,19 @@ class TestOrders(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        # Fechar a conexão e remover o banco de dados de teste
+        # Close the connection and remove the test database
         cls.conn.close()
         if os.path.exists(cls.test_db):
             os.remove(cls.test_db)
 
     def test_place_order(self):
-        # Inserir dados no carrinho
+        # Insert data into cart
         self.cursor.execute('INSERT INTO cart (user_id, product_id, quantity) VALUES (1, 1, 2)')
         self.conn.commit()
 
-        # Fazer o pedido
-        place_order(1)
+        place_order(1) 
 
-        # Verificar o pedido
-        self.cursor.execute('SELECT * FROM orders')
+        self.cursor.execute('SELECT * FROM orders') # Check the order
         orders = self.cursor.fetchall()
         
         self.assertEqual(len(orders), 1)
@@ -79,10 +74,9 @@ class TestOrders(unittest.TestCase):
         self.assertEqual(orders[0][2], 20.0)  # total_price
 
     def test_view_order_details(self):
-        # Fazer um pedido
-        place_order(1)
+        place_order(1) # Place the order
         
-        # Testar a visualização dos detalhes do pedido
+        # Test the order details view
         order_details = view_order_details(1, 1)
         self.assertIsNotNone(order_details)
         self.assertIn('order_id', order_details)
@@ -90,22 +84,21 @@ class TestOrders(unittest.TestCase):
         self.assertIn('total_price', order_details)
 
     def test_invalid_user_id_place_order(self):
-        # Testar a função place_order com um ID de usuário inválido
+        # Test the place_order function with an invalid user ID
         with self.assertRaises(ValueError):
             place_order(-1)
 
     def test_invalid_order_id_view_order_details(self):
-        # Testar a função view_order_details com um ID de pedido inválido
+        # Test the view order details function with an invalid order ID
         with self.assertRaises(ValueError):
             view_order_details(-1, 1)
 
     def test_unauthorized_access_view_order_details(self):
-        # Fazer um pedido com um usuário
-        place_order(1)
+        place_order(1) # Place an order with a user
         
-        # Testar o acesso não autorizado
+        # Test for unauthorized access
         with self.assertRaises(PermissionError):
-            view_order_details(1, 2)  # Usuário diferente do que fez o pedido
+            view_order_details(1, 2)  # User different from the one who made the request
 
 if __name__ == '__main__':
     unittest.main()

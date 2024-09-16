@@ -1,6 +1,6 @@
 import sqlite3
 
-# Função para criar a tabela de carrinhos (se não existir)
+# Function to create the cart table (if it does not exist)
 def create_cart_table(conn):
     cursor = conn.cursor()
     cursor.execute('''
@@ -15,7 +15,7 @@ def create_cart_table(conn):
     ''')
     conn.commit()
 
-# Função para visualizar o carrinho de um usuário
+# Function to view a user's cart
 def view_cart(user_id, conn):
     cursor = conn.cursor()
     cursor.execute('''
@@ -27,7 +27,7 @@ def view_cart(user_id, conn):
     items = cursor.fetchall()
     return items
 
-# Função para adicionar um produto ao carrinho
+# Function to add a product to the cart
 def add_to_cart(conn, user_id, product_id, quantity):
     cursor = conn.cursor()
     cursor.execute('''
